@@ -15,7 +15,7 @@ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org
 <property name="hibernate.format_sql" value="true"/> <!--sql을 예쁘게 보여줌-->
 <property name="hibernate.use_sql_comments" value="true"/> <!--어떤sql인지 코멘트 추가 -->
 <property name="hibernate.jdbc.batch_size" value="10" /> <!--DB에 쿼리를 보낼 버퍼 사이즈-->
-<!--<property name="hibernate.hbm2ddl.auto" value="create" />-->
+<property name="hibernate.hbm2ddl.auto" value="create" />
 </properties>
 </persistence-unit>
 </persistence>
