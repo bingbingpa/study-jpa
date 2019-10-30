@@ -7,8 +7,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
@@ -25,12 +28,23 @@ import lombok.Setter;
  * @Table은 엔티티와 매피할 테이블 지정
  */
 @Entity
+@SequenceGenerator(name="MEMER_SEQ_GENERATOR" ,
+                   sequenceName = "MEMBER_SEQ", 
+                   initialValue = 1, allocationSize = 10)
 @Getter
 @Setter
 public class Member {
 
-    //PK가 뭔지 알려주는 것.
+    /**
+     * PK가 뭔지 알려주는 것.
+     * GenerationType.AUTO : 키 자동 생성
+     * GenerationType.IDENTITY : 기본키 생성을 데이터베이스에 위임 
+     * GenerationType.SEQUENCE : 
+     * SEQUENCE를 쓸 때는 데이터 타입을 Long을 쓰는게 좋다. 테이블에 건수가 얼마 안된다고 하면 Integer를 써도 될 것 같다. 
+     * GenerationType.TABLE : 키생성 전용 테이블을 사용. 장점은 모든 DB에 사용 가능. 단점으로는 성능이 조금 떨어짐.
+     */
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MEMER_SEQ_GENERATOR")
     private Long id;
 
     /**

@@ -37,23 +37,23 @@ public class DemoApplication {
 		tx.begin();
 		try {
 			//객체를 생성한 상태 (비영속))
-			// Member member = new Member();
+			Member member = new Member();
 			// member.setId(2L);
-			// member.setName("HelloB");
+			member.setUsername("HelloB");
 
 			// 엔티티를 영속성 컨텍스트라는 곳에 저장 (영속)
-			// em.persist(member); 
+			em.persist(member); 
 			// Member findMember = em.find(Member.class, 1L);
 			// findMember.setName("HelloJPA");
 
 			// JPQL은 엔티티 객체를 대상으로 쿼리를 하고 SQL은 데이터베이스 테이블을 대상으로 쿼리를 한다.
-			List<Member> result = em.createQuery("select m from Member as m", Member.class)
-				.setFirstResult(5)
-				.setMaxResults(8)
-				.getResultList();
-			for(Member member : result) {
-				System.out.println("member.name ======= " +member.getUsername());
-			}
+			// List<Member> result = em.createQuery("select m from Member as m", Member.class)
+			// 	.setFirstResult(5)
+			// 	.setMaxResults(8)
+			// 	.getResultList();
+			// for(Member member : result) {
+			// 	System.out.println("member.name ======= " +member.getUsername());
+			// }
 			tx.commit();
 		} catch (Exception e) {
 			tx.rollback();
