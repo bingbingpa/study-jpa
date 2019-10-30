@@ -52,7 +52,7 @@ public class DemoApplication {
 				.setMaxResults(8)
 				.getResultList();
 			for(Member member : result) {
-				System.out.println("member.name ======= " +member.getName());
+				System.out.println("member.name ======= " +member.getUsername());
 			}
 			tx.commit();
 		} catch (Exception e) {
