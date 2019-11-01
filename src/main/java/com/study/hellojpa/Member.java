@@ -30,16 +30,23 @@ import lombok.Setter;
 @Entity
 @SequenceGenerator(name="MEMER_SEQ_GENERATOR" ,
                    sequenceName = "MEMBER_SEQ", 
-                   initialValue = 1, allocationSize = 10)
+                   initialValue = 1, allocationSize = 10) //allocationSize만큼 메모리에 저장해두고 쓴다. 네트워크를 그만큼 덜 탄다. 50에서 100정도가 적정 
 @Getter
 @Setter
 public class Member {
 
     /**
+     * 권장하는 식별자 전략 
+     * 기본 키 제약 조건: null 아님, 유일, 변하면 안된다.
+     * 미래까지 이 조건을 만족하는 자연키는 찾기 어렵다. 대리키(대체키)를 사용하자. 
+     * 권장 : Long형 + 대체키 + 키 생성전략 사용(랜덤키)
+     */
+
+    /**
      * PK가 뭔지 알려주는 것.
      * GenerationType.AUTO : 키 자동 생성
-     * GenerationType.IDENTITY : 기본키 생성을 데이터베이스에 위임 
-     * GenerationType.SEQUENCE : 
+     * GenerationType.IDENTITY : 기본키 생성을 데이터베이스에 위임(버퍼링 불가)
+     * GenerationType.SEQUENCE : 버퍼링 가능
      * SEQUENCE를 쓸 때는 데이터 타입을 Long을 쓰는게 좋다. 테이블에 건수가 얼마 안된다고 하면 Integer를 써도 될 것 같다. 
      * GenerationType.TABLE : 키생성 전용 테이블을 사용. 장점은 모든 DB에 사용 가능. 단점으로는 성능이 조금 떨어짐.
      */
