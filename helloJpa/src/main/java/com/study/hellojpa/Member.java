@@ -52,6 +52,7 @@ public class Member {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MEMER_SEQ_GENERATOR")
+    @Column(name="member_id")
     private Long id;
 
     /**
@@ -61,8 +62,11 @@ public class Member {
      * columnDefinition : 컬럼에 대해 직접 정의 예) varchar(100) default 'EMPTY'
      * 숫자타입일 경우 precision, scale로 자릿수등을 설정 가능 
      */
-    @Column(name="name", nullable = false)
+    @Column(name="username", nullable = false)
     private String username;
+
+    @Column(name="team_id")
+    private Long teamId;
 
     private Integer age;
 
