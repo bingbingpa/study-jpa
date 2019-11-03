@@ -1,19 +1,14 @@
 package com.study.hellojpa;
 
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import lombok.Getter;
@@ -65,34 +60,37 @@ public class Member {
     @Column(name="username", nullable = false)
     private String username;
 
-    @Column(name="team_id")
-    private Long teamId;
+    // @Column(name="team_id")
+    // private Long teamId;
+    @ManyToOne
+    @JoinColumn(name="team_id")
+    private Team team;
 
-    private Integer age;
+    // private Integer age;
 
     /**
      * @Enumerate : enum 타입 매핑
      * EnumType.ORDINAL은 사용하지 않는다(enum순서를 DB에 저장하기 때문에 enum이 바뀔 경우 순서가 바껴 버린다.)
      */
-    @Enumerated(EnumType.STRING)
-    private RoleType roleType;
+    // @Enumerated(EnumType.STRING)
+    // private RoleType roleType;
 
     /**
      * @temporal : 날짜 타입 매핑 
      * LocalDate, LocalDateTime 타입을 쓸 경우 생략 가능(자바8 이상)
      */
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date ceatedDate;
+    // @Temporal(TemporalType.TIMESTAMP)
+    // private Date ceatedDate;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date lastModifiedDate;
+    // @Temporal(TemporalType.TIMESTAMP)
+    // private Date lastModifiedDate;
 
     /**
      * @Lob : blob, clob 매핑  
      * 어노테이션을 주고 타입을 String으로 하면 문자타입의 칼럼이 생성된다.
      */
-    @Lob
-    private String description;
+    // @Lob
+    // private String description;
 
     /**
      * @Transient : DB와 관계없이 메모리상에서만 사용할 경우 

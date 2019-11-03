@@ -1,13 +1,12 @@
 package com.study;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
 import com.study.hellojpa.Member;
+import com.study.hellojpa.Team;
 
 // @SpringBootApplication
 public class DemoApplication {
@@ -36,13 +35,25 @@ public class DemoApplication {
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
 		try {
-			//객체를 생성한 상태 (비영속))
+			Team team = new Team();
+			team.setName("TeamA");
+			em.persist(team);
+
 			Member member = new Member();
+			member.setUsername("member1");
+			member.setTeam(team);
+			em.persist(member);
+
+			Member findMember = em.find(Member.class, member.getId());
+			Team findTeam = findMember.getTeam();
+			System.out.println("findTeam =================== " + findTeam.getName());
+			//객체를 생성한 상태 (비영속))
+			// Member member = new Member();
 			// member.setId(2L);
-			member.setUsername("HelloB");
+			// member.setUsername("HelloB");
 
 			// 엔티티를 영속성 컨텍스트라는 곳에 저장 (영속)
-			em.persist(member); 
+			// em.persist(member); 
 			// Member findMember = em.find(Member.class, 1L);
 			// findMember.setName("HelloJPA");
 
