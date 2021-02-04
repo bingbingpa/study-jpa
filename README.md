@@ -12,3 +12,8 @@
     - SQL 중심적인 개발에서 객체 중심으로 개발
     - 생산성
     - 유지보수 등등등...
+    
+### JPA 시작하기
+- JPA 설정파일은 /META-INF/persistence.xml 
+    - hibernate.dialect: 어떤 데이터베이스 인지 지정. ProgressDialect, H2Dialect, MySQL5InnoDBDialect 등등... 40가지 이상의 데이터베이스 방언 지원
+    - javax 로 시작하는 옵션들은 자바 표준이고 hibernate 로 시작하는 것들은 hibernate 에서만 쓰이는 옵션들이다. 다른 orm 구현체를 쓸 경우 javax 옵션이 아닌 경우는 바뀔 수 있다.
