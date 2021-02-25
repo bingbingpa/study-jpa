@@ -57,13 +57,31 @@
       em.remove(member);
       ~~~
 - 영속성 컨텍스트의 이점
-  - 1차 캐시
-  - 동일성 보장
-  - 트랜잭션을 지원하는 쓰기 지연
-  - 변경 감지
-  - 지연 로딩
+    - 1차 캐시
+    - 동일성 보장
+    - 트랜잭션을 지원하는 쓰기 지연
+    - 변경 감지
+    - 지연 로딩
 - 플러시: 영속성 컨텍스트의 변경내용을 데이터베이스에 반영
 - 영속석 컨텍스트를 플러시하는 방법
-  - em.flush() - 직접 호출 
-  - 트랜잭션 커밋 - 플러시 자동 호출
-  - JPQL 쿼리 실행 - 플러시 자동 호출
+    - em.flush() - 직접 호출 
+    - 트랜잭션 커밋 - 플러시 자동 호출
+    - JPQL 쿼리 실행 - 플러시 자동 호출
+    
+### 엔티티 매핑
+- @Entity
+    - **기본 생성자 필수** 
+    - final 클래스, enum, interface, inner 클래스 사용 X
+    - 저장할 필드에 final 사용 X
+- hibernate.hbm2ddl.auto
+    - create: 기존 테이블 삭제 후 다시 생성(DROP + CREATE)
+    - create-drop: creat 와 같으나 종료시점에 테이블 drop
+    - update: 변경분만 반영(**운영 DB 에는 사용하면 안됨**)
+    - validate: 엔티티와 테이블이 정상 매핑 되었는지만 확인 
+    - none: 사용하지 않음
+- 매핑 어노테이션 정리
+    - @Column: 컬럼 매핑
+    - @Temporal: 날짜 타입 매핑
+    - @Enumerated: enum 타입 매핑. default 는 ordinal value. **EnumType.STRING** 사용하면 enum 값이 그대로 저장. **ordinal 은 사용하지 말자**
+    - @Lob: BLOB, CLOB 매핑
+    - @Transient: 특정 필드를 컬럼에 매핑하지 않음(매핑 무시)

@@ -22,10 +22,10 @@ public class JpaMain {
 //            System.out.println("findMember.id ===== " + findMember.getId());
 //            System.out.println("findMember.name ===== " + findMember.getName());
 //            em.persist(member);
-            List<Member> result = em.createQuery("select m from Member as m", Member.class).getResultList();
-            for (Member member : result) {
-                System.out.println("member ==== " + member.getName());
-            }
+//            List<Member> result = em.createQuery("select m from Member as m", Member.class).getResultList();
+//            for (Member member : result) {
+//                System.out.println("member ==== " + member.getName());
+//            }
             tx.commit();
         } catch (Exception e) {
             em.close();
