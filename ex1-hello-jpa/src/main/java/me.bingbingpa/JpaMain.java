@@ -14,14 +14,14 @@ public class JpaMain {
         tx.begin();
 
         try {
-//            Member member = new Member();
+            Member member = new Member();
 //            member.setId(2L);
-//            member.setName("HelloB");
+            member.setUsername("Hello");
 //            Member findMember = em.find(Member.class, 1L);
 //            findMember.setName("HelloJPA");
 //            System.out.println("findMember.id ===== " + findMember.getId());
 //            System.out.println("findMember.name ===== " + findMember.getName());
-//            em.persist(member);
+            em.persist(member);
 //            List<Member> result = em.createQuery("select m from Member as m", Member.class).getResultList();
 //            for (Member member : result) {
 //                System.out.println("member ==== " + member.getName());

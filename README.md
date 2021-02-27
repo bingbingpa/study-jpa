@@ -85,3 +85,19 @@
     - @Enumerated: enum 타입 매핑. default 는 ordinal value. **EnumType.STRING** 사용하면 enum 값이 그대로 저장. **ordinal 은 사용하지 말자**
     - @Lob: BLOB, CLOB 매핑
     - @Transient: 특정 필드를 컬럼에 매핑하지 않음(매핑 무시)
+- 기본 키 매핑 방법
+    - 직접 할당: @Id 만 사용
+    - 자동생성(@GeneratedValue)
+      - IDENTITY: 데이터베이스에 위임, MYSQL
+        - AUTO_ INCREMENT 는 데이터베이스에 INSERT SQL 을 실행한 이후에 ID 값을 알 수 있음
+        - IDENTITY 전략은 em.persist() 시점에 즉시 INSERT SQL 실행 하고 DB 에서 식별자를 조회
+      - SEQUENCE: 데이터베이스 시퀀스 오브젝트 사용, 각 테이블 마다 다른 시퀀스를 사용하려면 @SequenceGenerator 필요
+        - allocationSize: 시퀀스 한 번 호출에 증가하는 수(성능 최적화에 사용됨). 기본값 50. sequence call 을 size 를 다 사용하고 나면 하게 된다.
+        하지만 was 를 내리면 그만큼 시퀀스에 구멍이 생기게 된다. 
+        - **데이터베이스 시퀀스 값이 하나씩 증가하도록 설정되어 있으면 이 값을 반드시 1로 설정해야 한다.**
+      - TABLE: 키 생성용 테이블 사용, 모든 DB 에서 사용. @TableGenerator 필요. 단점으로는 성능이 좀 떨어질 수 있다.
+      - AUTO: 방언에 따라 자동 지정, 기본값
+- 권장하는 식별자 전략
+  - 기본 키 제약 조건: null 아님, 유일, 변하면 안된다.
+  - 비즈니스를 키로 사용하지 마라. 예를 들어 주민등록 번호
+  - 권장: Long 타입 + 대체키 + 키 생성전략 사용
