@@ -1,7 +1,6 @@
 package me.bingbingpa;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @SequenceGenerator(name = "member_seq_generator", sequenceName = "member_seq", initialValue = 1, allocationSize = 1)
@@ -40,5 +39,6 @@ public class Member {
 
     public void setTeam(Team team) {
         this.team = team;
+        team.getMembers().add(this);
     }
 }
