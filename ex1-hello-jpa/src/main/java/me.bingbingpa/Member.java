@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @SequenceGenerator(name = "member_seq_generator", sequenceName = "member_seq", initialValue = 1, allocationSize = 1)
-public class Member {
+public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "member_seq_generator")
