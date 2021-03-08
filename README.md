@@ -221,3 +221,33 @@
     - **프록시 객체는 원본 엔티티를 상속 받음**, 따라서 타입 체크시 주의해야함(== 비교 실패, 대신 instance of 사용)
     - **영속성 컨텍스트에 찾는 엔티티가 이미 있으면 em.getReference() 를 호출해도 실제 엔티티 반환**
     - 영속성 컨텍스트의 도움을 받을 수 없는 준영속 상태일 때, 프록시를 초기화 하면 문제 발생(하이버네이트는 org.hibernate.LazyInitializationException 예외를 터트림)
+- 프록시와 즉시로딩 주의 사항
+    - **가급적 지연 로딩만 사용**
+    - 즉시 로딩을 적용하면 예상하지 못한 SQL 이 발생(FetchType.EAGER 인 테이블들을 모두 조인해온다.)
+    - **즉시 로딩은 JPQL 에서 N+1 문제를 일으킨다.**
+    - **@ManyToOne, @OneToOne 은 기본이 즉시 로딩 -> LAZY 로 설정**
+    - @OneToMany, @ManyToMany 는 기본이 지연 로딩
+- 영속성 전이
+    - 특정 엔티티를 영속 상태로 만들 때 연관된 엔티티도 함께 영속성 상태로 만들고 싶을 때
+    - 영속성 전이는 연관관계를 매핑하는 것과 아무 관련이 없음
+    - 엔티티를 영속화할 때 연관된 엔티티도 함께 영속화 하는 편리함을 제공할뿐
+- CASCADE 의 종류
+    - **ALL: 모두 적용**
+    - **PERSIST: 영속**
+    - REMOVE: 삭제 
+    - MERGE: 병합
+    - REFRESH: REFRESH
+    - DETACH: DETACH
+- 고아 객체
+    - 고아 객체 제거: 부모 엔티티와 연관관계가 끊어진 자식 엔티티를 자동으로 삭제
+        ~~~ java
+        orphanRemoval = true
+        ~~~
+    - **참조하는 곳이 하나일 때 사용해야 함!**
+    - **특정 엔티티가 개인 소유일 때 사용**
+    - @OneToOne, @OneToMany 만 가능 
+- 영속성 전이 + 고아 객체, 생명 주기
+    - **CascadeType.ALL + orphanRemoval=true**
+    - 스스로 생멍주기를 관리하는 엔티티는 em.persist() 로 영속화, em.remove() 로 제거
+    - **두 옵션을 모두 활성화 하면 부모 엔티티를 통해서 자식의 생명 주기를 관리할 수 있음**
+    - 도메인 주도 설계(DDD)의 Aggregate Root 개념을 구현할 때 유용
